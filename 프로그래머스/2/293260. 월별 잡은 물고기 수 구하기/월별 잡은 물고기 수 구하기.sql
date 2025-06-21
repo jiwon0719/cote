@@ -1,0 +1,10 @@
+-- 코드를 작성해주세요
+SELECT
+    COUNT(*) AS FISH_COUNT,
+    MONTH(TIME) AS MONTH
+FROM
+    FISH_INFO F
+GROUP BY
+    MONTH(TIME)
+ORDER BY
+    2;

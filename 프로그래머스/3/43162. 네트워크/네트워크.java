@@ -1,14 +1,16 @@
 import java.io.*;
 import java.util.*;
 
+// 핵심 : BFS가 끝나면 하나의 완전한 네트워크를 찾은 것
+
 class Solution {
     public int solution(int n, int[][] computers) {
         boolean[] visited = new boolean[n];
         int networkCount = 0;
         
         for(int i = 0; i < n; i++) {
-            if(!visited[i]){
-                bfs(i, computers, visited);
+            if(!visited[i]){ 
+                bfs(i, computers, visited); 
                 networkCount++;
             }
         }

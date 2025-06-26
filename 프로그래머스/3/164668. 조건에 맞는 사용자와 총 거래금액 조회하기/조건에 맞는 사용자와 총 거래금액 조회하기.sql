@@ -1,0 +1,22 @@
+-- 코드를 입력하세요
+-- WHERE : 완료된 중고 거래만 데이터 준비
+-- GROUP BY : USER_ID
+-- HAVING : 합이 70만원 이상
+-- 조인해서 닉네임 불러오기
+-- 총 금액으로 데이터 조회(SUM)
+SELECT 
+    B.WRITER_ID AS USER_ID,
+    U.NICKNAME, 
+    SUM(B.PRICE) AS TOTAL_SALES
+FROM 
+    USED_GOODS_BOARD B
+JOIN 
+    USED_GOODS_USER U ON U.USER_ID = B.WRITER_ID
+WHERE
+    B.STATUS = 'DONE'
+GROUP BY
+    B.WRITER_ID
+HAVING
+    SUM(B.PRICE) >= 700000
+ORDER BY
+    3 ASC;

@@ -6,8 +6,8 @@ class Solution {
         return dfs(numbers, target, 0, 0);
     }
     
-    public int dfs(int[] numbers, int target, int index, int currentSum) {
-        if(index == numbers.length) {
+    public int dfs(int[] numbers, int target, int currentSum, int i) {
+        if(i == numbers.length) {
             if(currentSum == target) {
                 return 1; 
             } else {
@@ -15,9 +15,9 @@ class Solution {
             }
         }
         
-        int count = 0;
-        count += dfs(numbers, target, index + 1, currentSum + numbers[index]);
-        count += dfs(numbers, target, index + 1, currentSum - numbers[index]);
-        return count;
+        int answer = 0;
+        answer += dfs(numbers, target, currentSum + numbers[i], i + 1);
+        answer += dfs(numbers, target, currentSum - numbers[i], i + 1);
+        return answer;
     }
 }

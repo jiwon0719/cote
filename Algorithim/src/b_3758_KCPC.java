@@ -21,10 +21,10 @@ public class b_3758_KCPC {
             submissionCount++;
             lastSubmissionTime = time;
 
-            if(!scores.containsKey(problemId) || scores.get(problemId) < score) {
+            if(!scores.containsKey(problemId) || scores.get(problemId) < score) { // 문제번호가 없거나, 있는데 점수가 더 적을 경우
                 int oldScore = scores.getOrDefault(problemId, 0);
                 scores.put(problemId, score);
-                totalScore = totalScore -oldScore +  score;
+                totalScore = totalScore - oldScore +  score;
             }
         }
     }
@@ -34,10 +34,10 @@ public class b_3758_KCPC {
         int TC = Integer.parseInt(br.readLine());
         for(int tc = 1; tc <= TC; tc++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-             int N = Integer.parseInt(st.nextToken());
-             int K = Integer.parseInt(st.nextToken());
-             int T = Integer.parseInt(st.nextToken());
-             int M = Integer.parseInt(st.nextToken());
+             int N = Integer.parseInt(st.nextToken()); // 팀 개수
+             int K = Integer.parseInt(st.nextToken()); // 문제 개수
+             int T = Integer.parseInt(st.nextToken()); // 내 팀 번호
+             int M = Integer.parseInt(st.nextToken()); // 로그 개수
 
              Map<Integer, Team> teams = new HashMap<>();
              for(int time = 0; time < M; time++) {

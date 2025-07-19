@@ -3,11 +3,11 @@ import java.util.*;
 
 public class b_14503_로봇청소기 {
 
+    static int N, M, R, C, D;
+    static int[][] arr;
+    static int count = 1;
     static int[] dr = {-1, 0, 1, 0}; // 북 동 남 서
     static int[] dc = {0, 1, 0, -1};
-    static int N, M;
-    static int[][] map;
-    static boolean[][] visited;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,52 +17,44 @@ public class b_14503_로봇청소기 {
         M = Integer.parseInt(st.nextToken());
 
         st = new StringTokenizer(br.readLine());
-        int R = Integer.parseInt(st.nextToken());
-        int C = Integer.parseInt(st.nextToken());
-        int D = Integer.parseInt(st.nextToken());
+        R = Integer.parseInt(st.nextToken());
+        C = Integer.parseInt(st.nextToken());
+        D = Integer.parseInt(st.nextToken());
 
-        map = new int[N][M];
+        arr = new int[N][M];
         for(int r = 0; r < N; r++) {
             st = new StringTokenizer(br.readLine());
             for(int c = 0; c < M; c++) {
-                map[r][c] = Integer.parseInt(st.nextToken());
+                arr[r][c] = Integer.parseInt(st.nextToken());
             }
         }
 
-        System.out.println(bfs(R, C, D));
+        solution(R, C, D);
+        System.out.println(count);
     }
 
-    public static int bfs(int R, int C, int D) {
-        Queue<int[]> queue = new LinkedList<>();
-        visited = new boolean[N][M];
+    public static void solution(int r, int c, int dir) {
+        arr[r][c] = -1;
 
-        queue.add(new int[] {R, C, 0});
-        visited[R][C] = true;
+        for (int d = 0; d < 4; d++) {
+            dir = (dir + 3) % 4;
 
-        int answer = 0;
-        while(!queue.isEmpty()) {
-            int[] current = queue.poll();
-            int r = current[0];
-            int c = current[1];
-            int direction = current[2];
-
-            // 1. 현재 칸이 청소되지 않았으면 청소한다.
-            if(map[r][c] == 0) {
-                map[r][c] = -1;
-                answer++;
-            }
-
-            for(int d = 0; d < 4; d++) {
-                int nr = r + dr[d];
-                int nc = c + dc[d];
-                if(map[nr][nc] == 0) {
-
+            int nr = r + dr[dir];
+            int nc = c + dc[dir];
+            if (nr >= 0 && nc >= 0 && nr < N && nc < M) {
+                if (arr[nr][nc] == 0) {
+                    count++;
+                    solution(nr, nc, dir);
+                    return;
                 }
             }
-            // 2-1. 현재 칸의 주변 4칸이 모두 청소된 경우
-            // 2-2. 현재 칸의 주변 4칸 중 청소 안 된 칸이 있는 경우
         }
 
-        return answer;
+        int d = (dir + 2) % 4; //반대 방향으로 후진
+        int br = r + dr[d];
+        int bc = c + dc[d];
+        if (br >= 0 && bc >= 0 && br < N && bc < M && arr[br][bc] != 1) {
+            solution(br, bc, dir); //후진이니까 바라보는 방향은 유지
+        }
     }
 }

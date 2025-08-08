@@ -15,17 +15,14 @@ public class Main {
         int[] dp = new int[N];
         Arrays.fill(dp, 1);
 
+        int max = 0;
         for(int i = 0; i < N; i++) {
             for(int j = 0; j < i; j++) {
                 if(arr[i] < arr[j]) dp[i] = Math.max(dp[i], dp[j] + 1);
             }
+            if(max < dp[i]) max = dp[i];
         }
 
-        int max = 0;
-        for(int i = 0; i < N; i++) {
-            if(max < dp[i]) max = dp[i];            
-        }
-        
         System.out.println(max);
     }
 }

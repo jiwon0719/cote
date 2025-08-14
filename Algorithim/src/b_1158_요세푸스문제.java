@@ -8,14 +8,20 @@ public class b_1158_요세푸스문제 {
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
 
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int i = 1; i <= N; i++) {
+            list.add(i);
+        }
+
         StringBuilder sb = new StringBuilder();
         sb.append("<");
-        int num = 0;
-        for(int i = 0; i <= N-1; i++) {
-            sb.append((num + K) % (N + 1)).append(", ");
-            num = (num + K) % (N + 1);
+        int idx = 0;
+        for(int i = 0; i < N-1; i++) {
+            idx = (idx + K - 1) % list.size();
+            sb.append(list.get(idx)).append(", ");
+            list.remove(list.get(idx));
         }
-        sb.append((num + K) % (N + 1));
+        sb.append(list.get(0));
         sb.append(">");
 
         System.out.println(sb);

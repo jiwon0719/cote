@@ -1,0 +1,13 @@
+import java.io.*;
+import java.math.*;
+import java.util.*;
+
+public class b_1212_8진수2진수 {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String str = br.readLine();
+        BigInteger num = new BigInteger(str, 8); // 8진수로 읽어서 > 10진수로 저장
+
+        System.out.println(num.toString(2)); // 10진수 값을 >  2진수 문자열로 변환
+    }
+}

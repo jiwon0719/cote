@@ -1,22 +1,24 @@
--- 코드를 입력하세요
--- WHERE : 완료된 중고 거래만 데이터 준비
--- GROUP BY : USER_ID
--- HAVING : 합이 70만원 이상
--- 조인해서 닉네임 불러오기
--- 총 금액으로 데이터 조회(SUM)
+-- 완료된 중고 거래의 총금액이 70만원 이상인 사람의 정보(회원id, 닉네임, 총거래금액)
+-- 오름차순 : 총거래금액
+
+-- 일단, 완료된 중고 거래의 총금액이 70만원 이상인 사람을 찾아
+
 SELECT 
-    B.WRITER_ID AS USER_ID,
-    U.NICKNAME, 
-    SUM(B.PRICE) AS TOTAL_SALES
+    USER_ID,
+    NICKNAME,
+    PRICE AS 'TOTAL_SALES'
 FROM 
-    USED_GOODS_BOARD B
-JOIN 
-    USED_GOODS_USER U ON U.USER_ID = B.WRITER_ID
-WHERE
-    B.STATUS = 'DONE'
-GROUP BY
-    B.WRITER_ID
-HAVING
-    SUM(B.PRICE) >= 700000
+    (SELECT
+        WRITER_ID, SUM(PRICE) AS 'PRICE'
+    FROM
+        USED_GOODS_BOARD
+    WHERE
+        STATUS LIKE 'DONE'
+    GROUP BY
+        WRITER_ID
+    HAVING
+        SUM(PRICE) >= 700000) AS B
+LEFT JOIN 
+    USED_GOODS_USER U ON B.WRITER_ID = U.USER_ID
 ORDER BY
     3 ASC;
